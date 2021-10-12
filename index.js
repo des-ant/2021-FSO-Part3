@@ -55,6 +55,14 @@ app.post('/api/persons', (request, response) => {
     });
   }
 
+  const personWithSameName = persons.find(person => person.name === body.name);
+
+  if (personWithSameName) {
+    return response.status(400).json({
+      error: 'name must be unique'
+    });
+  }
+
   const person = {
     name: body.name,
     number: body.number,
