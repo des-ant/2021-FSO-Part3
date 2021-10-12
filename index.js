@@ -2,6 +2,9 @@ const { response, request } = require('express');
 const express = require('express');
 const app = express();
 
+// Use Express middleware to parse incoming requests with JSON payloads
+app.use(express.json());
+
 let persons = [
   {
     "id": 1,
@@ -30,6 +33,36 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/persons', (request, response) => {
+  response.json(persons);
+});
+
+const generateId = () => {
+  return Math.round(Math.random() * 10000);
+};
+
+app.post('/api/persons', (request, response) => {
+  const body = request.body;
+
+  if (!body.name) {
+    return response.status(400).json({
+      error: 'name missing'
+    });
+  }
+  
+  if (!body.number) {
+    return response.status(400).json({
+      error: 'number missing'
+    });
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+  };
+
+  persons = persons.concat(person);
+
   response.json(persons);
 });
 
