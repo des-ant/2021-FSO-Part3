@@ -6,8 +6,11 @@ const app = express();
 // Use Express middleware to parse incoming requests with JSON payloads
 app.use(express.json());
 
+// Create new token to log data in HTTP POST request
+morgan.token('body', (request, response) => JSON.stringify(request.body));
+
 // Use Morgan middleware to log messages to console
-app.use(morgan('tiny'));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 
 let persons = [
