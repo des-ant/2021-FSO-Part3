@@ -1,0 +1,20 @@
+{
+  "name": "phonebook-backend",
+  "version": "0.0.1",
+  "description": "Backend part of Phonebook app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/des-ant/2021-FSO-Part3.git"
+  },
+  "author": "des-ant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/des-ant/2021-FSO-Part3/issues"
+  },
+  "homepage": "https://github.com/des-ant/2021-FSO-Part3#readme"
+}
