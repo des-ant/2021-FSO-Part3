@@ -1,9 +1,14 @@
-const { response, request } = require('express');
 const express = require('express');
+const morgan = require('morgan');
+
 const app = express();
 
 // Use Express middleware to parse incoming requests with JSON payloads
 app.use(express.json());
+
+// Use Morgan middleware to log messages to console
+app.use(morgan('tiny'));
+
 
 let persons = [
   {
