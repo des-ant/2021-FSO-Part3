@@ -1,0 +1,4 @@
+DELETE https://secure-fjord-19891.herokuapp.com/api/persons/3498
+
+###
+GET https://secure-fjord-19891.herokuapp.com/api/persons

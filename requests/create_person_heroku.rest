@@ -1,0 +1,40 @@
+POST https://secure-fjord-19891.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "New Person",
+  "number": "012-12-123123"
+}
+
+###
+# Request with name missing should be rejected
+POST https://secure-fjord-19891.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "",
+  "number": "012-12-123123"
+}
+
+###
+# Request with number missing should be rejected
+POST https://secure-fjord-19891.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "New Person",
+  "number": ""
+}
+
+###
+# Request containing name that already exists in phonebook should be rejected
+POST https://secure-fjord-19891.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "012-12-123123"
+}
+
+###
+GET https://secure-fjord-19891.herokuapp.com/api/persons
