@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 
 const app = express();
@@ -11,6 +12,9 @@ morgan.token('body', (request, response) => JSON.stringify(request.body));
 
 // Use Morgan middleware to log messages to console
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+
+// Use Cors middleware to allow requests from all origins
+app.use(cors());
 
 
 let persons = [
