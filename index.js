@@ -7,6 +7,9 @@ const app = express();
 // Use Express middleware to parse incoming requests with JSON payloads
 app.use(express.json());
 
+// Show static content using express middleware
+app.use(express.static('build'));
+
 // Create new token to log data in HTTP POST request
 morgan.token('body', (request, response) => JSON.stringify(request.body));
 
