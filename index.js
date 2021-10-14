@@ -6,11 +6,11 @@ const Person = require('./models/person')
 
 const app = express();
 
-// Use Express middleware to parse incoming requests with JSON payloads
-app.use(express.json());
-
 // Show static content using express middleware
 app.use(express.static('build'));
+
+// Use Express middleware to parse incoming requests with JSON payloads
+app.use(express.json());
 
 // Create new token to log data in HTTP POST request
 morgan.token('body', (request, response) => JSON.stringify(request.body));
@@ -86,15 +86,12 @@ app.get('/api/persons/:id', (request, response) => {
   }
 });
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
     .then(result => {
       response.status(204).end();
     })
-    .catch(error => {
-      console.log(error);
-      response.status(400).send({ error: 'malformatted id' });
-    });
+    .catch(error => next(error));
 });
 
 app.get('/info', (request, response) => {
@@ -103,6 +100,18 @@ app.get('/info', (request, response) => {
     <p>${new Date()}</p>`
   );
 });
+
+const errorHandler = (error, request, response, next) => {
+  console.log(error.message);
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' });
+  }
+
+  next(error);
+};
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
