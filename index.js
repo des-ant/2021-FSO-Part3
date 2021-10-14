@@ -55,42 +55,25 @@ app.get('/api/persons', (request, response) => {
   })
 });
 
-const generateId = () => {
-  return Math.round(Math.random() * 10000);
-};
-
 app.post('/api/persons', (request, response) => {
   const body = request.body;
 
   if (!body.name) {
-    return response.status(400).json({
-      error: 'name missing'
-    });
+    return response.status(400).json({ error: 'name missing' });
   }
   
   if (!body.number) {
-    return response.status(400).json({
-      error: 'number missing'
-    });
+    return response.status(400).json({ error: 'number missing' });
   }
 
-  const personWithSameName = persons.find(person => person.name === body.name);
-
-  if (personWithSameName) {
-    return response.status(400).json({
-      error: 'name must be unique'
-    });
-  }
-
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: generateId(),
-  };
+  });
 
-  persons = persons.concat(person);
-
-  response.json(persons);
+  person.save().then(savedPerson => {
+    response.json(savedPerson);
+  });
 });
 
 app.get('/api/persons/:id', (request, response) => {
