@@ -1,0 +1,21 @@
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Update Me",
+  "number": "012-12-123123"
+}
+
+###
+PUT http://localhost:3001/api/persons/6168252b620faf7c0336727a
+Content-Type: application/json
+
+{
+  "number": "333-33-333333"
+}
+
+###
+DELETE http://localhost:3001/api/persons/6168252b620faf7c0336727a
+
+###
+GET http://localhost:3001/api/persons
