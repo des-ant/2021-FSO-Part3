@@ -47,4 +47,34 @@ Content-Type: application/json
 }
 
 ###
+# Name less than 3 characters long should not be added
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "No",
+  "number": "123-123-4444"
+}
+
+###
+# Number less than 8 digits long should not be added
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Short Number",
+  "number": "123"
+}
+
+###
+# Number less than 8 digits  long should not be added even if string length > 8 characters
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Short Number",
+  "number": "12-34-567"
+}
+
+###
 GET http://localhost:3001/api/persons

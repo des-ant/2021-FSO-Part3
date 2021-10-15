@@ -13,16 +13,28 @@ mongoose.connect(url)
     console.log('error connecting to MongoDB:', error.message);
   });
 
+const validateNumberLength = (numberString) => {
+  // Remove all hyphens from number string
+  numberDigits = numberString.replace(/-/g, '');
+  return numberDigits.length >= 8;
+}
+
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
+    minLength: 3,
     required: true,
     unique: true
   },
   number: {
     type: String,
+    validate: {
+      validator: validateNumberLength,
+      message: 'Phone number must have at least 8 digits'
+    },
+    minLength: 8,
     required: true
-  },
+  }
 });
 
 // Add unique constraint to person schema
