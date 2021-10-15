@@ -37,4 +37,14 @@ Content-Type: application/json
 }
 
 ###
+# Should not be able to add same person twice
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Duplicate Person",
+  "number": "123-123-4444"
+}
+
+###
 GET http://localhost:3001/api/persons
