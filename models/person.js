@@ -6,7 +6,7 @@ const url = process.env.MONGODB_URI;
 console.log('connecting to', url);
 
 mongoose.connect(url)
-  .then(result => {
+  .then(() => {
     console.log('connected to MongoDB');
   })
   .catch((error) => {
@@ -15,9 +15,9 @@ mongoose.connect(url)
 
 const validateNumberLength = (numberString) => {
   // Remove all hyphens from number string
-  numberDigits = numberString.replace(/-/g, '');
+  const numberDigits = numberString.replace(/-/g, '');
   return numberDigits.length >= 8;
-}
+};
 
 const personSchema = new mongoose.Schema({
   name: {

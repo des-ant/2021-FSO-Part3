@@ -1,8 +1,8 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const Person = require('./models/person')
+const Person = require('./models/person');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.static('build'));
 app.use(express.json());
 
 // Create new token to log data in HTTP POST request
-morgan.token('body', (request, response) => JSON.stringify(request.body));
+morgan.token('body', (request) => JSON.stringify(request.body));
 
 // Use Morgan middleware to log messages to console
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
@@ -36,7 +36,7 @@ const errorHandler = (error, request, response, next) => {
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
     response.json(persons);
-  })
+  });
 });
 
 app.post('/api/persons', (request, response, next) => {
@@ -45,7 +45,7 @@ app.post('/api/persons', (request, response, next) => {
   if (!body.name) {
     return response.status(400).json({ error: 'name missing' });
   }
-  
+
   if (!body.number) {
     return response.status(400).json({ error: 'number missing' });
   }
@@ -92,7 +92,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end();
     })
     .catch(error => next(error));
